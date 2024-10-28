@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}
+GarbageCollection - My Work
+{% endblock %}
+{% block body %}
+    <!-- Projects Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1 class="display-5 mb-5">My Work</h1>
+            </div>
+
+            <!-- Centered Card Row -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10"> <!-- Adjusted column size for better centering -->
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+
+                            <!-- Centered Card -->
+                            <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                                <div class="border border-5 border-light border-top-0 p-4 text-center">
+                                    <p>Work ID: {{ drivermail.id }}</p>
+                                    <!-- <p class="text-primary fw-medium mb-2">Assigned Area: {{ drivermail.darea }}</p> -->
+
+                                    <h4 class="mt-3">User Details</h4>
+                                    {% if bins %}  <!-- Check for bins since user details are now included in bins -->
+                                        {% for detail in bins %}
+                                              <!-- User Name -->
+                                            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                            <p class="text-primary fw-medium mb-2">Name: {{ detail.username }}</p>
+                                            <p class="text-primary fw-medium mb-2">User Email: {{ detail.user_email }}</p> <!-- User Email -->
+                                            <p class="text-primary fw-medium mb-2">User Address: {{ detail.user_address }}</p> <!-- User Address -->
+                                            
+                                            </div>
+                                            <br>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>No user details available.</p>
+                                    {% endif %}
+
+                                    <h4 class="mt-3">Assigned Bins</h4>
+                                    {% if bins %}
+                                        {% for bin in bins %}
+                                            <div class="bin-container border border-primary p-3 my-3">
+                                                <p class="text-primary fw-medium mb-2">Bin Area: {{ bin.bin_area }}</p>
+                                                
+                                                <p class="text-primary fw-medium mb-2">Cleaning Period: {{ bin.bin_period }}</p>
+                                            </div>
+                                        {% endfor %}
+                                        <p class="text-primary fw-medium mb-2">Work Status: {{ report.status }}</p>
+
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-box button">
+                                                <button type="submit" name="Status" class="btn btn-primary py-3 px-5" value="completed">Completed</button>
+                                                <button type="submit" name="Status" class="btn btn-primary py-3 px-5" value="declined">Dropped</button>
+                                            </div>
+                                        </form><br>
+                                    {% else %}
+                                        <p>No bins assigned to this driver.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <a href="{% url 'driver2' %}" class="btn btn-primary py-3 px-5">HomePage</a>
+        </div>
+    </div>
+    <!-- Projects End -->
+{% endblock %}

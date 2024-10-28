@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+GarbageCollection - admin profile
+{% endblock %}
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5" style="background-image: url(/static/img/human1.jpg); height: 400px;;">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Registered Users</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1 class="display-5 mb-5">User Details</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                {% for i in details %}
+                <div class="testimonial-item text-center">
+                    User ID : {{i.id}}
+                    <div class="testimonial-text text-center p-4">
+                        <p></p>
+                        <h5 class="mb-1">User Name : {{i.username}}</h5>
+                        <span class="fst-italic">User Email :{{i.email}}</span><br>
+                        <span class="fst-italic">User Phone :{{i.phone}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div><br>
+            <div class="section-title text-center"><a href="{% url 'admin2' %}" class="btn btn-primary py-3 px-5">HomePage</a></div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+    {% endblock %}

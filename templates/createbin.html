@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}
+GarbageCollection - Create Bin
+{% endblock %}
+{% block body %}
+   <!-- Quote Start -->
+   <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+       <div class="container quote px-lg-0">
+           <div class="row g-0 mx-lg-0">
+               <div class="col-lg-6 ps-lg-0" style="min-height: 400px;">
+                   <div class="position-relative h-100">
+                       <img class="position-absolute img-fluid w-100 h-100" src="/static/img/environment.jpg" style="object-fit: cover;" alt="">
+                   </div>
+               </div>
+               <div class="col-lg-6 quote-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                   <div class="p-lg-5 pe-lg-0">
+                       <div class="section-title text-start">
+                           <h1 class="display-5 mb-4">Create Bin</h1>
+                       </div>
+                       <p class="mb-4 pb-2"></p>
+                       {% if messages %}
+                           {% for i in messages %}
+                               <div class="alert alert-danger">{{i}}</div>
+                           {% endfor %}
+                       {% endif %}
+                       <form method="POST">
+                           {% csrf_token %}
+                           <div class="row g-3">
+                               <div class="col-12 col-sm-6">
+                                   <input type="text" id="area" class="form-control border-0" name="area" placeholder="Address" style="height: 55px;" required>
+                               </div>
+                               
+                               <div class="col-12 col-sm-6">
+                                   <input type="email" class="form-control border-0" name="dmail" placeholder="Driver Email" style="height: 55px;" required>
+                               </div>
+                               <div class="col-12 col-sm-6">
+                                   <input type="text" maxlength="10" pattern="[0-9]{10}" class="form-control border-0" name="mobile" placeholder="Your Mobile" style="height: 55px;" required>
+                               </div>
+                               <div class="col-12 col-sm-6">
+                                   <select name="period" class="form-control border-0" style="height: 55px;" required>
+                                       <option value="" disabled selected hidden>Cleaning Period</option>
+                                       <option value="Daily">Daily</option>
+                                       <option value="Twice">Twice</option>
+                                       <option value="Weekly">Weekly</option>
+                                   </select>
+                               </div>
+                               <div class="col-12 col-sm-6">
+                                   <select id="complaintSelect" name="complaint_id" class="form-control border-0" style="height: 55px;" required>
+                                       <option value="" disabled selected hidden>Select Complaint</option>
+                                       {% for complaint in complaints %}
+                                           <option value="{{ complaint.id }}" data-area="{{ complaint.rarea }}">{{ complaint.rarea }} - {{ complaint.remail }}</option>
+                                       {% endfor %}
+                                   </select>
+                               </div>
+                               <div class="col-12">
+                                   <button class="btn btn-primary w-100 py-3" type="submit">Create Bin</button>
+                               </div>
+                           </div>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- Quote End -->
+
+   <script>
+       // JavaScript to auto-populate area input field based on selected complaint
+       document.getElementById('complaintSelect').addEventListener('change', function() {
+           var selectedOption = this.options[this.selectedIndex];
+           var areaValue = selectedOption.getAttribute('data-area');
+           document.getElementById('area').value = areaValue;
+       });
+   </script>
+{% endblock %}

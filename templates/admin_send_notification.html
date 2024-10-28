@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Notification - Garbage Collection
+{% endblock %}
+
+{% block body %}
+<!-- Notification Creation Section -->
+<div class="container-xxl py-5" style="margin-top: 80px;">
+    <div class="container">
+        <h2 class="mb-4">Create Notification</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-success">Send Notification</button>
+        </form>
+        <a href="{% url 'admin2' %}" class="btn btn-secondary mt-3">Back to Admin Profile</a>
+    </div>
+</div>
+{% endblock %}

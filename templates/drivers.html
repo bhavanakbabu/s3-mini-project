@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}
+GarbageCollection - My complaints
+{% endblock %}
+{% block body %}
+    <!-- Projects Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1 class="display-5 mb-5">All Created Drivers</h1>
+            </div>
+            <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-12 text-center">
+                    <ul class="list-inline mb-5" id="portfolio-flters">
+                        
+                    </ul>
+                </div>
+            </div>
+           
+            <div class="row g-4 portfolio-container">
+                {% if details %}
+                {% for i in details %}
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p> Driver ID : {{i.id}}</p>
+                            <h5 class="lh-base mb-0">Driver name :{{i.dname}}</a>
+                            <p class="text-primary fw-medium mb-2">Driver  password : {{i.dpassword}} </p>
+                            <p class="text-primary fw-medium mb-2">driver mail : {{i.demail}} </p>
+                            <p class="text-primary fw-medium mb-2">Area assigned : {{i.darea}} </p>
+                            <p class="text-primary fw-medium mb-2"><a href="updatedriver1/{{i.id}}">Update Driver</a></p>
+                            <p class="text-primary fw-medium mb-2"><a href="deletedriver/{{i.id}}">Delete Driver</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded overflow-hidden">
+                        <div class="border border-5 border-light border-top-0 p-4">
+                        No Driver Created
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div><br>
+            <a href="{% url 'admin2' %}" class="btn btn-primary py-3 px-5">HomePage</a>
+        </div>
+    </div>
+    <!-- Projects End -->
+{% endblock %}
